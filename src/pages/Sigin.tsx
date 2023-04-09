@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import { signInSchema, signInType } from "../Schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+const isAuthenticated = () => {
+  const user = localStorage.getItem("user");
+  return user !== null;
+};
 export const Sigin = () => {
   const user = JSON.parse(localStorage.getItem("user") as string);
   const {
@@ -15,7 +19,17 @@ export const Sigin = () => {
   } = useForm<signInType>({ resolver: yupResolver(signInSchema) });
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
+  useEffect(() => {
+    if (isAuthenticated()) {
+      // Nếu đã đăng nhập, chuyển hướng đến trang khác
+      if (user.user.role === "admin") {
+        navigate("/admin");
+      }
+      if (user.user.role !== "admin") {
+        navigate("/");
+      }
+    }
+  }, []);
   const onHandleSubmit = async (data: signInType) => {
     try {
       const Res: any = await signIn(data);

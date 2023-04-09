@@ -1,8 +1,8 @@
 import { IProducts } from "./Products";
 import * as Yup from "yup";
 export interface ICategory {
-  _id: String | Number;
-  name: String;
+  _id: string | number;
+  name: string;
 }
 
 export const updateSchema = Yup.object({

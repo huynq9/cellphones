@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { IProducts } from "../../interface/Products";
-import { getOne, update } from "../../api/products";
+import { getOne, update, UploadImage } from "../../api/products";
 import { getCategories } from "../../api/categories";
 import { ICategory, updateForm, updateSchema } from "../../interface/Category";
 import { Categories } from "../../components/admin/Categories";
@@ -9,9 +9,11 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AddProduct, AddProductSchema } from "../../Schemas/products";
+import { MdOutlineAddBox } from "react-icons/md";
 
 export const Edit = () => {
   const user = JSON.parse(localStorage.getItem("user") as string);
+  const [image, setImage] = useState<any>(null);
   const { id } = useParams();
   const [cate, setCate] = useState<ICategory[]>([]);
   const [product, setProduct] = useState<IProducts[]>([]);
@@ -25,11 +27,12 @@ export const Edit = () => {
     resolver: yupResolver(AddProductSchema),
   });
   const fetchCate = async () => {
-    const {
-      data: { categories },
-    } = await getCategories();
-    setCate(categories);
-    console.log(categories);
+    const Res: any = await getCategories();
+
+    if (Res && Res.data) {
+      const { categories } = Res.data;
+      setCate(categories);
+    }
   };
 
   console.log(cate);
@@ -47,14 +50,38 @@ export const Edit = () => {
       fetchProductById(id);
     }
   }, []);
-  const onHandleSubmit = async (product: AddProduct) => {
+  const onHandleSubmit = async (product: IProducts) => {
+    if (typeof image !== "string") {
+      return;
+    }
+    product.image = image;
     try {
       if (id) {
         await update(id, product);
         alert("Cập nhật sản phẩm thành công");
         navigate("/admin/");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onChangeFile = async (e: any) => {
+    const files = e.target.files[0];
+    if (files) {
+      try {
+        console.log(files);
+        const Res = await UploadImage({
+          file: files,
+          upload_preset: "uploadCellphones",
+        });
+        console.log(Res);
+        if (Res) {
+          setImage(Res.data.url);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -65,7 +92,24 @@ export const Edit = () => {
       <div className="flex relative">
         <div className="w-3/12 shadow-md absolute">
           <div className="mx-auto my-[15%]">
-            <img src="/product4.png" className="mx-auto" alt="" />
+            <img
+              src={product.image ? product.image : `/product2.png`}
+              className="mx-auto w-[360px] h-[360px]"
+              alt=""
+            />
+          </div>
+          <div className="mx-auto my-[15%]">
+            <label htmlFor="drop" className=" text-center block cursor-pointer">
+              <MdOutlineAddBox size={24} className="mx-auto" />
+              Sửa ảnh
+              <input
+                type="file"
+                onChange={onChangeFile}
+                hidden
+                name=""
+                id="drop"
+              />
+            </label>
           </div>
           <div className=" border rounded-xl">
             <input

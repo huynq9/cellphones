@@ -1,7 +1,7 @@
 import { MdOutlineAddBox } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { IProducts } from "../../interface/Products";
-import { createProduct } from "../../api/products";
+import { createProduct, UploadImage } from "../../api/products";
 import { useEffect, useState } from "react";
 import { getCategories } from "../../api/categories";
 import { Categories } from "../../components/admin/Categories";
@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export const Add = () => {
   const navigate = useNavigate();
   const [cate, setCate] = useState<ICategory[]>([]);
+  const [image, setImage] = useState<any>(null);
   const {
     register,
     handleSubmit,
@@ -22,23 +23,26 @@ export const Add = () => {
     resolver: yupResolver(AddProductSchema),
   });
   const fetchCate = async () => {
-    // const Res: any = await getCategories();
+    const Res: any = await getCategories();
 
-    // if (Res && Res.data) {
-    //   const { categories } = Res.data;
-    //   setCate(categories);
-    // }
-    const {
-      data: { categories },
-    } = await getCategories();
-    setCate(categories);
+    if (Res && Res.data) {
+      const { categories } = Res.data;
+      setCate(categories);
+    }
+    // const {
+    //   data: { categories },
+    // } = await getCategories();
+    // setCate(categories);
   };
   useEffect(() => {
     fetchCate();
   }, []);
 
   const onHandleSubmit = async (product: IProducts) => {
-    console.log(product);
+    if (typeof image !== "string") {
+      return;
+    }
+    product.image = image;
     try {
       await createProduct(product);
       alert("Thêm sản phẩm thành công");
@@ -47,9 +51,28 @@ export const Add = () => {
       console.log(error);
     }
   };
+  const onChangeFile = async (e: any) => {
+    const files = e.target.files[0];
+    if (files) {
+      try {
+        console.log(files);
+        const Res = await UploadImage({
+          file: files,
+          upload_preset: "uploadCellphones",
+        });
+        console.log(Res);
+        if (Res) {
+          setImage(Res.data.url);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  console.log(image);
 
   return (
-    <form onSubmit={handleSubmit(() => onHandleSubmit())}>
+    <form onSubmit={handleSubmit(onHandleSubmit)}>
       <div className="flex justify-between  ">
         <h1 className="text-2xl font-bold">Thêm sản phẩm</h1>
       </div>
@@ -59,7 +82,13 @@ export const Add = () => {
             <label htmlFor="drop" className=" text-center block cursor-pointer">
               <MdOutlineAddBox size={24} className="mx-auto" />
               Thêm ảnh
-              <input type="file" hidden name="" id="drop" />
+              <input
+                type="file"
+                onChange={onChangeFile}
+                hidden
+                name=""
+                id="drop"
+              />
             </label>
           </div>
           <div className=" border rounded-xl">

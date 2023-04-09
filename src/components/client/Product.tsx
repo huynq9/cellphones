@@ -7,7 +7,11 @@ export const Product = ({ data }: Props) => {
     <section>
       <div className="flex">
         <div className="px-10">
-          <img src="/product2.png" className="w-full" alt="" />
+          <img
+            src={data.image ? data.image : `/product2.png`}
+            className="w-[360px] h-[360px]"
+            alt=""
+          />
         </div>
         <div className="w-7/12">
           <div>

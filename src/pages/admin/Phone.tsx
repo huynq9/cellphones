@@ -8,16 +8,21 @@ import { boolean } from "yup";
 export const Phone = () => {
   const user = JSON.parse(localStorage.getItem("user") as string);
   const [products, setProducts] = useState<IProducts[]>([]);
-
+  const [curentPage, setCurrentPage] = useState<number>(1);
+  const [metaData, setMetaData] = useState<any>({});
   const fetchProducts = async () => {
-    const { data } = await getAll();
-
-    setProducts(data.data);
+    const {
+      data: {
+        data: { products, meta },
+      },
+    } = await getAll(curentPage, 10);
+    setMetaData(meta);
+    setProducts(products);
   };
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [curentPage]);
 
   const onDelete = async (id: string) => {
     try {
@@ -31,6 +36,17 @@ export const Phone = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+  const handleNextPage = (type: string) => {
+    if (type === "nextPage") {
+      if (metaData?.totalPage !== curentPage) {
+        setCurrentPage(curentPage + 1);
+      }
+    } else {
+      if (metaData?.totalPage === curentPage || curentPage > 1) {
+        setCurrentPage(curentPage - 1);
+      }
     }
   };
 
@@ -72,6 +88,12 @@ export const Phone = () => {
             ))}
           </tbody>
         </table>
+        {metaData?.totalPage !== curentPage && (
+          <button onClick={() => handleNextPage("nextPage")}>Xem Thêm</button>
+        )}
+        {(curentPage > 1 || curentPage === metaData.total) && (
+          <button onClick={() => handleNextPage("cc")}>Quay lại</button>
+        )}
       </div>
     </section>
   );

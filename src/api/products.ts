@@ -3,12 +3,12 @@ import { IProducts } from "../interface/Products";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateForm } from "../interface/Category";
 
-export const getAll = () => {
+export const getAll = (page: number, limit: number) => {
   // if (id) {
   //   return instance.get(`/products/${id}`);
   // }
 
-  return instance.get("/products");
+  return instance.get(`/products?_page=${page}&_limit=${limit}`);
 };
 export const getOne = (id: string) => {
   return instance.get(`/products/${id}`);
@@ -51,4 +51,17 @@ export const createProduct = (product: IProducts) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+};
+export const UploadImage = (data: any) => {
+  const name = "dwb9qumu6";
+  return instance.post(
+    `https://api.cloudinary.com/v1_1/${name}/image/upload`,
+    data,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      },
+    }
+  );
 };
