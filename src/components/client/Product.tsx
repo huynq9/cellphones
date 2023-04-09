@@ -1,4 +1,8 @@
-export const Product = () => {
+import { IProducts } from "../../interface/Products";
+type Props = {
+  data: IProducts;
+};
+export const Product = ({ data }: Props) => {
   return (
     <section>
       <div className="flex">
@@ -7,8 +11,8 @@ export const Product = () => {
         </div>
         <div className="w-7/12">
           <div>
-            <span className="text-red-500 text-2xl">11.690.000 ₫</span>
-            <span className="text-gray-500 pl-4">12.990.000 ₫</span>
+            <span className="text-red-500 text-2xl">{data.price} Đ</span>
+            <span className="text-gray-500 pl-4">{data.original_price} ₫</span>
           </div>
 
           <span className="pt-10">
@@ -53,7 +57,7 @@ export const Product = () => {
         <div className="mt-5 bg-gray-200 rounded-md">
           <h1 className="text-red-500 text-center py-3">ĐẶC ĐIỂM NỔI BẬT</h1>
           <div className="mx-5">
-            <p className="py-2">
+            {/* <p className="py-2">
               Camera chất lượng, bắt trọn từng khoảng khắc - Cụm 4 camera với
               cảm biến chính lên đến 108 MP
             </p>
@@ -68,10 +72,11 @@ export const Product = () => {
             <p className="py-2">
               Chiến game thoải mái không lo gián đoạn - Viên pin lớn 5000 mAh,
               hỗ trợ sạc nhanh 25 W
-            </p>
+            </p> */}
+            {data.properties}
           </div>
         </div>
-        <p className="py-5">
+        {/* <p className="py-5">
           Năm 2022 hứa hẹn sẽ là một năm rất đáng trông đợi đối với những ai là
           fan của thương hiệu điện thoại Samsung. Mới đây, hãng sẽ tiếp tục cho
           ra mắt nhiều smartphone với sự cải tiến trong thiết kế và cấu hình,
@@ -104,7 +109,8 @@ export const Product = () => {
           Kích thước và trọng lượng của chiếc điện thoại rất vừa phải và dĩ
           nhiên sẽ không chiếm quá nhiều diện tích trong túi xách và có thể di
           chuyển dễ dàng.
-        </p>
+        </p> */}
+        {data.desc}
         <div className="flex  justify-center items-center">
           <button className="border-2 border-black px-32 py-1 text-black  rounded-xl">
             Xem thêm

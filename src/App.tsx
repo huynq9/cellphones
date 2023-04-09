@@ -4,12 +4,13 @@ import Layout from "./components/client/Layout";
 import Home from "./pages/client/Home";
 import { Detail } from "./pages/client/Detail";
 import { SignUp } from "./pages/SignUp";
-import { Login } from "./pages/Login";
 import { Cart } from "./pages/client/Cart";
 import { LayOutAdmin } from "./components/admin/Layout";
 import { Phone } from "./pages/admin/Phone";
 import { Edit } from "./pages/admin/Edit";
 import { Add } from "./pages/admin/Add";
+import { Sigin } from "./pages/Sigin";
+import { PrivateRouter } from "./components/admin/PrivateRouter";
 
 function App() {
   return (
@@ -17,15 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
-            element={
-              <Layout>
-                <Home />
-              </Layout>
-            }
-          />
-          <Route
-            path="/detail"
+            path="/detail/:id?"
             element={
               <Layout>
                 <Detail />
@@ -33,7 +26,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Sigin />} />
           <Route
             path="/cart"
             element={
@@ -43,16 +36,24 @@ function App() {
             }
           />
           <Route
-            path="/admin/dashboard"
-            element={<LayOutAdmin>{<Phone />}</LayOutAdmin>}
+            path="/admin/"
+            element={<PrivateRouter>{<Phone />}</PrivateRouter>}
           />
           <Route
-            path="/admin/edit"
-            element={<LayOutAdmin>{<Edit />}</LayOutAdmin>}
+            path="/admin/edit/:id"
+            element={<PrivateRouter>{<Edit />}</PrivateRouter>}
           />
           <Route
             path="/admin/add"
-            element={<LayOutAdmin>{<Add />}</LayOutAdmin>}
+            element={<PrivateRouter>{<Add />}</PrivateRouter>}
+          />
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <Home />
+              </Layout>
+            }
           />
         </Routes>
       </BrowserRouter>

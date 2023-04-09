@@ -3,7 +3,7 @@ export const Nav = () => {
   return (
     <nav className="flex flex-col mt-[5%] px-[4%] shadow-xl h-screen fixed">
       <Link
-        to="/admin/dashboard"
+        to="/admin"
         className="p-3  mt-[20%]  hover:bg-[#00B0D7] hover:text-white rounded-lg my-[3%]"
       >
         <i className="fa-solid fa-mobile fa-xl mx-3"></i>

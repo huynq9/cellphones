@@ -1,6 +1,9 @@
 export interface IProducts {
-  _id: String | Number;
-  name: String;
-  price: Number;
-  original_price: Number;
+  _id: string;
+  name: string;
+  price: number;
+  original_price: number;
+  properties: string;
+  desc: string;
+  categoryId: string;
 }
