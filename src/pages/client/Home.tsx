@@ -33,14 +33,20 @@ const HomePage = () => {
         <Slider />
       </div>
       <div className="pt-5  mt-5  mx-auto ">
+        <h1 className="text-3xl font-bold my-4">Sản phẩm nổi bật</h1>
         <div className="mx-auto flex gap-7 flex-wrap ">
           {product.map((item, index) => (
-            <ListProducts data={item} key={index} />
+            <ListProducts className="" data={item} key={index} />
           ))}
         </div>
       </div>
       {metaData?.totalPage !== curentPage && (
-        <button onClick={handleNextPage}>Xem Thêm</button>
+        <button
+          onClick={handleNextPage}
+          className="border p-3 mt-3 bg-red-600 text-white rounded-xl hover:bg-yellow-500 hover:text-black"
+        >
+          Xem Thêm
+        </button>
       )}
     </div>
   );

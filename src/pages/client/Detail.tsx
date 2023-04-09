@@ -8,7 +8,7 @@ import { IProducts } from "../../interface/Products";
 export const Detail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<IProducts[]>([]);
-  const fetchProduct = async (id) => {
+  const fetchProduct = async (id: string) => {
     const {
       data: { data },
     } = await getOne(id);

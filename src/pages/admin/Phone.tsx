@@ -89,10 +89,20 @@ export const Phone = () => {
           </tbody>
         </table>
         {metaData?.totalPage !== curentPage && (
-          <button onClick={() => handleNextPage("nextPage")}>Xem Thêm</button>
+          <button
+            onClick={() => handleNextPage("nextPage")}
+            className="border p-3 mt-3 bg-[#00B0D7] text-black rounded-xl hover:bg-red-600 hover:text-white"
+          >
+            Xem Thêm
+          </button>
         )}
         {(curentPage > 1 || curentPage === metaData.total) && (
-          <button onClick={() => handleNextPage("cc")}>Quay lại</button>
+          <button
+            onClick={() => handleNextPage("cc")}
+            className="border p-3 mt-3 bg-[#00B0D7] text-black rounded-xl hover:bg-red-600 hover:text-white"
+          >
+            Quay lại
+          </button>
         )}
       </div>
     </section>

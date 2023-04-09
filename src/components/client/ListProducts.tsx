@@ -8,13 +8,13 @@ const ListProducts = ({ data }: Props) => {
   return (
     <Link to={`/detail/${data._id}`} className="">
       {/* <div className="flex flex-wrap mt-5 gap-6 m-auto"> */}
-      <div className="product w-[1/7] ">
+      <div className="product w-[250px] hover:shadow-xl p-3 hover:scale-110 transform transition duration-500">
         <div className=" ">
           <img
             style={{ objectFit: "cover" }}
             src={data.image ? data.image : `/product1.png`}
             alt=""
-            className="mx-auto block w-[200px] h-[200px]"
+            className="mx-auto block w-[200px] h-[200px] hover:scale-110 transform transition duration-500"
           />
         </div>
         <div className="">
