@@ -9,7 +9,7 @@ type Props = {
 export const Product = ({ data, index, onHandleClick }: Props) => {
   return (
     <tr className=" border-t ">
-      <td className="text-center py-6">{index}</td>
+      <td className="text-center py-4">{index}</td>
       <td className="text-center">{data.name}</td>
       <td className="text-center">
         <img
