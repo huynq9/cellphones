@@ -2,15 +2,22 @@ import { Link } from "react-router-dom";
 import { IProducts } from "../../interface/Products";
 import { AddProduct } from "../../Schemas/products";
 type Props = {
-  data: AddProduct;
+  data: IProducts;
   index: number;
   onHandleClick: any;
 };
 export const Product = ({ data, index, onHandleClick }: Props) => {
   return (
-    <tr className=" border-t">
-      <td className="text-center py-3">{index}</td>
+    <tr className=" border-t ">
+      <td className="text-center py-6">{index}</td>
       <td className="text-center">{data.name}</td>
+      <td className="text-center">
+        <img
+          src={data.image ? data.image : `/product3.png`}
+          className="w-[50px] h-[50px] m-auto "
+          alt=""
+        />
+      </td>
       <td className="text-center">{data.price}</td>
       <td>{data.desc} </td>
       <td className="text-center mx-auto">

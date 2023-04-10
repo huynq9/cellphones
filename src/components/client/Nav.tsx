@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 export const Nav = () => {
   return (
     <nav className="w-8/12 mx-auto">
       <ul className="flex">
         <li className="p-1 text-sm pr-3 pl-3 hover:text-red-800">
-          <a href="">Trang chủ</a>
+          <Link to="/">Trang chủ</Link>
         </li>
         <li className="p-1 text-sm pr-3 pl-3 hover:text-red-800">
           <a href="">Điện thoại</a>

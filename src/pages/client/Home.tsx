@@ -43,7 +43,7 @@ const HomePage = () => {
       {metaData?.totalPage !== curentPage && (
         <button
           onClick={handleNextPage}
-          className="border p-3 mt-3 bg-red-600 text-white rounded-xl hover:bg-yellow-500 hover:text-black"
+          className="border p-3 mt-6 bg-red-600 text-white rounded-xl hover:bg-yellow-500 hover:text-black"
         >
           Xem Thêm
         </button>

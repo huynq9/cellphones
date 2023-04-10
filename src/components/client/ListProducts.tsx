@@ -8,7 +8,7 @@ const ListProducts = ({ data }: Props) => {
   return (
     <Link to={`/detail/${data._id}`} className="">
       {/* <div className="flex flex-wrap mt-5 gap-6 m-auto"> */}
-      <div className="product w-[250px] hover:shadow-xl p-3 hover:scale-110 transform transition duration-500">
+      <div className="product w-[250px] h-[350px] hover:shadow-xl p-3 hover:scale-110 transform transition duration-500">
         <div className=" ">
           <img
             style={{ objectFit: "cover" }}

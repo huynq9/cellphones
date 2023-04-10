@@ -71,8 +71,9 @@ export const Phone = () => {
             <tr className="border-t ">
               <th className="w-1/12 py-3">#</th>
               <th className="w-2/12">Tên sản phẩm</th>
-              <th className="w-2/12">Thành tiền</th>
-              <th className="w-3/12">Mô tả</th>
+              <th className="w-1/12">Ảnh</th>
+              <th className="w-2/12">Giá</th>
+              <th className="w-2/12">Mô tả</th>
               <th className="w-2/12">Ẩn/hiện</th>
               <th className="w-2/12">Thao tác </th>
             </tr>
